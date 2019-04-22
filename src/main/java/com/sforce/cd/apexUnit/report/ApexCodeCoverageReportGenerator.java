@@ -142,10 +142,11 @@ public class ApexCodeCoverageReportGenerator {
 			appendHeaderCell(codeCoverageHTMLContent, "", "Uncovered Lines");
 			appendHeaderCell(codeCoverageHTMLContent, "", "Length Without Comments(Bytes)");
 			codeCoverageHTMLContent.append("</header>");
-			appendTag(codeCoverageHTMLContent, "tr", "");
-			codeCoverageHTMLContent.append("<lowcc>");
+			//appendTag(codeCoverageHTMLContent, "tr", "");
+			//codeCoverageHTMLContent.append("<lowcc>");
 			// populate the data cells for the table
 			for (ApexClassCodeCoverageBean apexClassCodeCoverageBean : apexClassCodeCoverageBeans) {
+				codeCoverageHTMLContent.append("<tr>");
 				String codeCoverageStyle = "";
 				if (apexClassCodeCoverageBean.getCoveragePercentage() < CommandLineArguments
 						.getTeamCodeCoverageThreshold()) {
@@ -153,24 +154,25 @@ public class ApexCodeCoverageReportGenerator {
 				} else {
 					codeCoverageStyle = "align='Center' style=\"color:green\"";
 				}
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"apexClass\"",
 						apexClassCodeCoverageBean.getApexClassName());
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle, apexClassCodeCoverageBean.getApiVersion());
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"apiVersion\"", apexClassCodeCoverageBean.getApiVersion());
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"coveragePercentage\"",
 						String.format("%.2f", apexClassCodeCoverageBean.getCoveragePercentage()) + "%");
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"coveredLines\"",
 						"" + apexClassCodeCoverageBean.getNumLinesCovered());
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"uncoveredLines\"",
 						"" + apexClassCodeCoverageBean.getNumLinesUncovered());
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"coveredList\"",
 						populateListInAStringBuffer(apexClassCodeCoverageBean.getCoveredLinesList()));
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"uncoveredList\"",
 						populateListInAStringBuffer(apexClassCodeCoverageBean.getUncoveredLinesList()));
-				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle,
+				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"length\"",
 						apexClassCodeCoverageBean.getLengthWithoutComments());
-				appendTag(codeCoverageHTMLContent, "tr", "");
+				//appendTag(codeCoverageHTMLContent, "tr", "");
+				codeCoverageHTMLContent.append("</tr>");
 			}
-			codeCoverageHTMLContent.append("</lowcc>");
+			//codeCoverageHTMLContent.append("</lowcc>");
 		}
 		htmlBuilder.append("<table border='1'>");
 		htmlBuilder.append(codeCoverageHTMLContent);
