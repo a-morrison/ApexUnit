@@ -142,8 +142,6 @@ public class ApexCodeCoverageReportGenerator {
 			appendHeaderCell(codeCoverageHTMLContent, "", "Uncovered Lines");
 			appendHeaderCell(codeCoverageHTMLContent, "", "Length Without Comments(Bytes)");
 			codeCoverageHTMLContent.append("</header>");
-			//appendTag(codeCoverageHTMLContent, "tr", "");
-			//codeCoverageHTMLContent.append("<lowcc>");
 			// populate the data cells for the table
 			for (ApexClassCodeCoverageBean apexClassCodeCoverageBean : apexClassCodeCoverageBeans) {
 				codeCoverageHTMLContent.append("<tr>");
@@ -169,10 +167,8 @@ public class ApexCodeCoverageReportGenerator {
 						populateListInAStringBuffer(apexClassCodeCoverageBean.getUncoveredLinesList()));
 				appendDataCell(codeCoverageHTMLContent, codeCoverageStyle + " class=\"length\"",
 						apexClassCodeCoverageBean.getLengthWithoutComments());
-				//appendTag(codeCoverageHTMLContent, "tr", "");
 				codeCoverageHTMLContent.append("</tr>");
 			}
-			//codeCoverageHTMLContent.append("</lowcc>");
 		}
 		htmlBuilder.append("<table border='1'>");
 		htmlBuilder.append(codeCoverageHTMLContent);
